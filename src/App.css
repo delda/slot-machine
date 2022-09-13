@@ -312,13 +312,12 @@ body {
 #slot-trigger .knob {
   background: #ff6363;
   background: radial-gradient(ellipse at center, #ff6363 0%,#cf0404 100%);
-  border-radius: 1em;
+  border-radius: 2em;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-  height: 2em;
-  left: -.5em;
-  /*top: -8.5em;*/
-  top: -1em;
-  width: 2em;
+  width: 4em;
+  height: 4em;
+  left: -1.5em;
+  top: -2em;
   z-index: 4;
 }
 
