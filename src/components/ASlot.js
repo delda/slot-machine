@@ -1,73 +1,64 @@
-import React from 'react'
-import {findDOMNode} from "react-dom";
+import React, {useRef, useState, useEffect} from 'react'
+import {findDOMNode} from "react-dom"
+import jsonList from "./phrase.json";
+import classNames from "classnames";
 
-class ASlot extends React.Component {
-    constructor(props) {
-        super(props)
-        this.targetRefs = [];
-    }
+export default function ASlot(props, ref) {
+    const targetRefs = []
+    const duration = props.duration
+    let startTime = Date.now()
+    const slotFrame = useRef()
+    const fullScroll = useRef(0)
+    const totalScroll = useRef(0)
 
-    componentDidUpdate(prevProps) {
-        console.log('%c [SW] eccomi!', 'background: blue; color: #fff; padding: 5px;');
-
-        const $frame = this.FrameRef;
-        $frame.scrollTop = 0;
-        const $target = findDOMNode(this.targetRefs[this.props.target]);
-        const fullScroll = findDOMNode(this.targetRefs[this.targetRefs.length - 1]).offsetTop
-        const targetOffset = $target.offsetTop
-
-        const totalScroll = targetOffset + fullScroll * (this.props.times - 1)
-        const startTime = Date.now()
-
-        const tick = () => {
-            const elapsed = Date.now() - startTime;
-            if (elapsed > this.props.duration) {
-                this.onEnd()
-                return
-            }
-
-            const amount = this.easing(elapsed, 0, totalScroll, this.props.duration)
-            $frame.scrollTop = amount % fullScroll;
-
-            requestAnimationFrame(tick);
+    useEffect(() => {
+        if (props.newItem) {
+            newItem()
         }
+    }, [props.newItem])
 
-        tick()
-    }
-
-    easing(elapsed, initialValue, amountOfChange, duration) {
+    const easing = (elapsed, initialValue, amountOfChange, duration) => {
         return -amountOfChange * (elapsed /= duration) * (elapsed - 2) + initialValue
     }
 
-    onEnd() {
+    const onEnd = () => {
         console.log(this)
         console.log('End!')
     }
 
-    render() {
-        return (
-            <div
-                id={this.props.id}
-                ref={FrameRef => (this.FrameRef = FrameRef)}
-            >
-                {this.props.children.map((child, index) =>
-                    React.cloneElement(child, { ref: ref => (this.targetRefs[index] = ref) }))}
-            </div>
-        )
+    const newItem = () => {
+        console.log('%c [SW] turn!', 'background: blue; color: #fff; padding: 5px;')
+        const frame = slotFrame.current
+        frame.scrollTop = 0
+        const target = findDOMNode(targetRefs[props.target])
+        fullScroll.current = findDOMNode(targetRefs[targetRefs.length - 1]).offsetTop
+        const targetOffset = target.offsetTop
+
+        totalScroll.current = targetOffset + fullScroll.current * (props.times - 1)
+        const startTime = Date.now()
+        tick()
     }
+
+    const tick = () => {
+        const elapsed = Date.now() - startTime
+        if (elapsed > duration) {
+            onEnd()
+            return
+        }
+
+        const amount = easing(elapsed, 0, totalScroll.current, duration)
+        slotFrame.current.scrollTop = amount % fullScroll.current
+
+        requestAnimationFrame(tick)
+    }
+
+    return (
+        <div
+            id={props.id}
+            ref={slotFrame}
+        >
+            {props.children.map((child, index) =>
+                React.cloneElement(child, { ref: ref => (targetRefs[index] = ref) }))}
+        </div>
+    )
 }
-
-export default ASlot
-
-
-// function debugMediamond(testo, tipo) {
-//     var debugStyleError = 'background: none; color: #000; padding: 5px;';
-//     if (tipo == 'error') {
-//         debugStyleError = 'background: red; color: #fff; padding: 5px;';
-//     } else if (tipo == 'worn') {
-//         debugStyleError = 'background: orange; color: #000; padding: 5px;';
-//     } else if (tipo == 'info') {
-//         debugStyleError = 'background: blue; color: #fff; padding: 5px;';
-//     }
-//     console.log('%c[mediamond]' + testo + '', debugStyleError);
-// }
