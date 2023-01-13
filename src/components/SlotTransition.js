@@ -1,15 +1,14 @@
-import React, {useRef, useState, useEffect} from 'react'
+import React, {useRef, useEffect} from 'react'
 import {findDOMNode} from "react-dom"
-import jsonList from "./phrase.json";
-import classNames from "classnames";
 
-export default function ASlot(props, ref) {
+export default function SlotTransition(props, ref) {
     const targetRefs = []
     const duration = props.duration
     let startTime = Date.now()
     const slotFrame = useRef()
     const fullScroll = useRef(0)
     const totalScroll = useRef(0)
+    const timesRotation = props.rotations
 
     useEffect(() => {
         if (props.newItem) {
@@ -21,21 +20,16 @@ export default function ASlot(props, ref) {
         return -amountOfChange * (elapsed /= duration) * (elapsed - 2) + initialValue
     }
 
-    const onEnd = () => {
-        console.log(this)
-        console.log('End!')
-    }
+    const onEnd = () => {}
 
     const newItem = () => {
-        console.log('%c [SW] turn!', 'background: blue; color: #fff; padding: 5px;')
         const frame = slotFrame.current
         frame.scrollTop = 0
         const target = findDOMNode(targetRefs[props.target])
         fullScroll.current = findDOMNode(targetRefs[targetRefs.length - 1]).offsetTop
         const targetOffset = target.offsetTop
 
-        totalScroll.current = targetOffset + fullScroll.current * (props.times - 1)
-        const startTime = Date.now()
+        totalScroll.current = targetOffset + fullScroll.current * (timesRotation - 1)
         tick()
     }
 
