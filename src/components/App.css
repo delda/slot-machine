@@ -117,6 +117,10 @@ body {
   z-index: 2;
 }
 
+.slot-frame, #slot-frame {
+  left: 7%;
+}
+
 .slot-frame.shadow:before {
   content: '';
   display: block;
@@ -166,7 +170,7 @@ body {
 .slot-item .date {
   position: absolute;
   right: 10px;
-  bottom: 5px;
+  bottom: 1em;
   font-style: italic;
   font-size: .8em;
 }
@@ -433,19 +437,24 @@ body {
   margin: auto;
 }
 
-.tooBig {
+.tooBig, .intro {
   display: inline-block;
   margin: 0;
   position: absolute;
-  top: 60%;
-  transform: translate(0, -75%);
+  top: 50%;
+  transform: translate(0, -50%);
+  padding-right: 0.5em;
+}
+
+.intro {
+  font-size: 7vw;
 }
 
 .slot-item .evergreen {
   background-color: #FEE300;
   padding: 0px 3px 4px 3px;
   border-radius: 8px;
-  margin: 10px;
+  bottom: 0.5em;
   border: solid 2px #007dc3;
   color: #007dc3;
   font-variant: all-small-caps;
@@ -491,3 +500,19 @@ body {
   75%  { top: auto; bottom: -1em; position: absolute; animation-timing-function: step-start; }
   100% { animation-timing-function: step-start; }
 }
+
+@media (max-width: 500px) {
+  body {
+    font-size: 8px;
+  }
+  .slot-frame, #slot-frame {
+    left: 6%;
+  }
+  .slot-item {
+    font-size: 5vw;
+  }
+  .slot-item .evergreen {
+    bottom: 1em;
+  }
+}
+
