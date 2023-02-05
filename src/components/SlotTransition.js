@@ -16,8 +16,10 @@ export default function SlotTransition(props, ref) {
         }
     }, [props.newItem])
 
-    const easing = (elapsed, initialValue, amountOfChange, duration) => {
-        return -amountOfChange * (elapsed /= duration) * (elapsed - 2) + initialValue
+    const sliding = (initialValue, finalValue, elapsed, duration) => {
+        // -x^2 + 2x + 0 = 0 nostra equazione
+        let percentage = elapsed / duration
+        return -finalValue * percentage * (percentage - 2) + initialValue
     }
 
     const onEnd = () => {}
@@ -40,7 +42,7 @@ export default function SlotTransition(props, ref) {
             return
         }
 
-        const amount = easing(elapsed, 0, totalScroll.current, duration)
+        const amount = sliding(0, totalScroll.current, elapsed, duration)
         slotFrame.current.scrollTop = amount % fullScroll.current
 
         requestAnimationFrame(tick)
@@ -51,6 +53,9 @@ export default function SlotTransition(props, ref) {
             id={props.id}
             ref={slotFrame}
         >
+            <div className="slot-item evergreen">
+                <div className="intro"><p>Tira la manovella!</p></div>
+            </div>
             {props.children.map((child, index) =>
                 React.cloneElement(child, { ref: ref => (targetRefs[index] = ref) }))}
         </div>
