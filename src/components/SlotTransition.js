@@ -17,7 +17,9 @@ export default function SlotTransition(props, ref) {
     }, [props.newItem])
 
     const sliding = (initialValue, finalValue, elapsed, duration) => {
+        // a x^2 + bx + c = 0 quadratic equation
         // -x^2 + 2x + 0 = 0 nostra equazione
+        // parable from the points (0,0) and (1, 1)
         let percentage = elapsed / duration
         return -finalValue * percentage * (percentage - 2) + initialValue
     }
