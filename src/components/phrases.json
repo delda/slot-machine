@@ -1,28 +1,27 @@
 [
   {
-    "phrase": "prova",
-    "author": "ciccio",
-    "date": "2020-01-01"
+    "phrase": "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+    "author": "Nelson Mandela",
+    "date": "1970-01-01"
   },{
-    "phrase": "provaccia",
-    "author": "franco",
-    "date": "2021-01-01"
+    "phrase": "If you can dream it, you can do it.",
+    "author": "Walt Disney",
+    "date": "1970-01-01"
   },{
-    "phrase": "prova2",
-    "author": "ciccio",
-    "date": "2020-01-01"
+    "phrase": "Whoever is happy will make others happy too.",
+    "author": "Anne Frank",
+    "date": "1970-01-01"
   },{
-    "phrase": "provaccia2",
-    "author": "franco",
-    "date": "2021-01-01"
-  },
-  {
-    "phrase": "prova3",
-    "author": "ciccio",
-    "date": "2020-01-01"
+    "phrase": "Spread love everywhere you go. Let no one ever come to you without leaving happier.",
+    "author": "Mother Teresa",
+    "date": "1970-01-01"
   },{
-    "phrase": "provaccia3",
-    "author": "franco",
-    "date": "2021-01-01"
+    "phrase": "And yet it moves!",
+    "author": "Galileo Galilei",
+    "date": "1970-01-01"
+  },{
+    "phrase": "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
+    "author": "Albert Einstein",
+    "date": "1970-01-01"
   }
 ]
